@@ -1,23 +1,16 @@
-package spark.repl
+package example
 
-import org.apache.spark.sql.{Dataset, SparkSession}
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration
-import org.springframework.boot.autoconfigure.{EnableAutoConfiguration, SpringBootApplication}
-import org.springframework.boot.{CommandLineRunner, SpringApplication}
-import spark.repl.model.Bank
+import example.model.Bank
+import example.infra.SparkSessionWrapper
 
-@SpringBootApplication
-@EnableAutoConfiguration(exclude = Array(classOf[GsonAutoConfiguration]))
-class Application extends CommandLineRunner {
+class Application {
 
-  @Autowired
-  val spark: SparkSession = null
+  val spark = SparkSessionWrapper.spark
 
   // implicit conversion: https://docs.scala-lang.org/tour/implicit-conversions.html
   import spark.sqlContext.implicits._
 
-  override def run(args: String*) = {
+  def run(args: String*) = {
 
     val df = loadDf
 
@@ -64,5 +57,10 @@ class Application extends CommandLineRunner {
 }
 
 object Application extends App {
-  SpringApplication.run(classOf[Application])
+  new Application().run(args: _*)
 }
+
+
+
+
+

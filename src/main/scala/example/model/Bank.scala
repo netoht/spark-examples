@@ -1,4 +1,4 @@
-package spark.repl.model
+package example.model
 
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
